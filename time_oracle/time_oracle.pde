@@ -25,9 +25,13 @@ void setup() {
     println("Could not find the current event!");
     exit();
   }
+  if (currEvent + 1 > events.size()) {
+    println("Not enough events!");
+    exit();
+  }
   Event _now = (Event) events.get(currEvent);
   Event _then = (Event) events.get(currEvent + 1);
-  eventStart=System.nanoTime(); //for testing, can be removed
+  eventStart=System.currentTimeMillis(); //for testing, can be removed
 
   initialize(_now, _then);
 }
@@ -48,7 +52,7 @@ void draw() {
 }
 
 void checkNewEvent() {
-  long eventDuration = System.nanoTime() - eventStart;
+  long eventDuration = System.currentTimeMillis() - eventStart;
   if (eventDuration >= now.duration) {
     currEvent++;
     if ( currEvent > events.size()) {
@@ -57,19 +61,19 @@ void checkNewEvent() {
     }
     Event newEvent = (Event) events.get(currEvent);
     pushEvent(newEvent);
-    eventStart = System.nanoTime();
+    eventStart = System.currentTimeMillis();
   }
 }
 
 void initialize(Event _now, Event _then) {
   now = _now;
   then = _then;
-  durationStart = _now.start * 1000000000L;
+  durationStart = _now.start * 1000L;
 }
 
 void pushEvent(Event _transition) {
   transition = _transition;
-  durationStart = System.nanoTime();
+  durationStart = System.currentTimeMillis();
   transitionCount = 255;
 }
 
@@ -80,7 +84,7 @@ void drawDurationCircles() {
   if (spaceBetween < 20) {
     spaceBetween = 25;
   }
-  float timeEllapsed = (float)(System.nanoTime() - durationStart);
+  float timeEllapsed = (float)(System.currentTimeMillis() - durationStart);
   float percentEllapsed = timeEllapsed/now.duration;
   for (int i = 0; i < 8; i++) {
     if (percentEllapsed >i/8.0 && percentEllapsed <(i+1)/8.0)
@@ -103,7 +107,7 @@ void transition() {
   if (transitionCount == 0.0) {
     now = then;
     then = transition;
-    durationStart = System.nanoTime();
+    durationStart = System.currentTimeMillis();
   }
 }
 
@@ -160,7 +164,8 @@ ArrayList loadEvents(String filename) {
 }
 
 int currEventIndex(ArrayList events) {
-  long time = System.nanoTime() / 1000000000L;
+  long time = System.currentTimeMillis() / 1000L;
+  print("Time: ");
   println(time);
    for(int i = 0; i < events.size(); i++) {
      Event e = (Event) events.get(i);
@@ -181,7 +186,7 @@ class Event {
     name = _name;
     start = _start;
     end = _end;
-    duration = (long) pow(10, 9) * (end - start);
+    duration = (long) 1000 * (end - start);
   }
 }
 

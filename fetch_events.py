@@ -22,7 +22,7 @@ client_id = "93879183907.apps.googleusercontent.com"
 client_secret = "rA1h_3sK-j2Co6pmK_i5_C0_"
 
 # Run print_cals functions to get ids and put them here to get your data.
-enabled_cals = ("primary",)
+enabled_cals = ("timeoraclecs467@gmail.com",)
 
 # The scope URL for read/write access to a user's calendar data
 scope = 'https://www.googleapis.com/auth/calendar'
@@ -151,7 +151,7 @@ def main():
         print "total after filtering out overlapping events: " + str(len(event_list))
         event_list = insert_free_time(event_list)
         print "total with free time events inserted: " + str(len(event_list))
-        with open("text_effects/data/event_list.json", "w") as f:
+        with open("time_oracle/data/event_list.json", "w") as f:
             json.dump(event_list, f, indent=4, separators=(',', ': '))
     except AccessTokenRefreshError:
         # The AccessTokenRefreshError exception is raised if the credentials
