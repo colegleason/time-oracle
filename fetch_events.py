@@ -22,7 +22,7 @@ client_secret = "rA1h_3sK-j2Co6pmK_i5_C0_"
 
 # These are cole's calendars.  Run print_cals functions to get id's
 # and put them here to get your data.
-enabled_cals = ("primary",)
+enabled_cals = ("timeoraclecs467@gmail.com",)
 
 # The scope URL for read/write access to a user's calendar data
 scope = 'https://www.googleapis.com/auth/calendar'
