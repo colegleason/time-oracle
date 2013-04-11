@@ -1,0 +1,3 @@
+python-dateutil==2.1
+rfc3339==5
+google-api-python-client==1.1
