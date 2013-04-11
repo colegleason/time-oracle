@@ -145,7 +145,7 @@ def main():
         print "total after filtering out overlapping events: " + str(len(event_list))
         event_list = insert_free_time(event_list)
         print "total with free time events inserted: " + str(len(event_list))
-        with open("event_list.json", "w") as f:
+        with open("text_effects/data/event_list.json", "w") as f:
             json.dump(event_list, f, indent=4, separators=(',', ': '))
     except AccessTokenRefreshError:
         # The AccessTokenRefreshError exception is raised if the credentials
