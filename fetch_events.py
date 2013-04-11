@@ -22,9 +22,7 @@ client_secret = "rA1h_3sK-j2Co6pmK_i5_C0_"
 
 # These are cole's calendars.  Run print_cals functions to get id's
 # and put them here to get your data.
-enabled_cals = ("primary",
-                "nrqhn9en88ltti9djpi60t98n0@group.calendar.google.com",
-                "dmoun4g5vi6vrk3a76tqn02l9o@group.calendar.google.com")
+enabled_cals = ("primary",)
 
 # The scope URL for read/write access to a user's calendar data
 scope = 'https://www.googleapis.com/auth/calendar'
@@ -116,7 +114,7 @@ def main():
     #   version of the API you are using ('v3')
     #   authorized httplib2.Http() object that can be used for API calls
     service = build('calendar', 'v3', http=http)
-
+    print_cals(service)
     try:
         event_list = []
         keys = {"end", "start", "summary"}
@@ -142,11 +140,11 @@ def main():
 
                 # the list_next method.
                 request = service.events().list_next(request, response)
-        print "total: " + str(len(event_list))
+        print "\n\ntotal events found: " + str(len(event_list))
         event_list = filter_events(event_list)
-        print "filtered: " + str(len(event_list))
+        print "total after filtering out overlapping events: " + str(len(event_list))
         event_list = insert_free_time(event_list)
-        print "total with free: " + str(len(event_list))
+        print "total with free time events inserted: " + str(len(event_list))
         with open("event_list.json", "w") as f:
             json.dump(event_list, f, indent=4, separators=(',', ': '))
     except AccessTokenRefreshError:
