@@ -13,7 +13,7 @@ int currEvent;
 ArrayList events;
 
 void setup() {
-  size(600, 400);
+  size(400, 400);
   background(0);
   frameRate(30);
   setupPositions();
