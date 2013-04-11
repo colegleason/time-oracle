@@ -3,6 +3,7 @@
 import json
 import datetime
 import httplib2
+import time
 
 # Parse dates into datetime objects
 from dateutil import parser
@@ -20,9 +21,8 @@ from oauth2client.tools import run
 client_id = "93879183907.apps.googleusercontent.com"
 client_secret = "rA1h_3sK-j2Co6pmK_i5_C0_"
 
-# These are cole's calendars.  Run print_cals functions to get id's
-# and put them here to get your data.
-enabled_cals = ("timeoraclecs467@gmail.com",)
+# Run print_cals functions to get ids and put them here to get your data.
+enabled_cals = ("primary",)
 
 # The scope URL for read/write access to a user's calendar data
 scope = 'https://www.googleapis.com/auth/calendar'
@@ -69,6 +69,12 @@ def insert_free_time(event_list):
     """
     events = sorted(event_list, key=lambda x: x["start"])
     free_events = []
+    if time.time() < events[0]["start"]:
+        e = {"summary":"Free Time",
+             "start": time.time(),
+             "end": events[0]["start"]
+        }
+        free_events.append(e)
     for i in range(len(events) - 1):
         if events[i]["end"] != events[i + 1]["start"]:
             e = {"summary":"Free Time",
